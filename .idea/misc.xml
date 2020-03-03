@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/userservice/target/classes/META-INF/maven/com.pixogram/userservice/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery-server/target/classes/META-INF/maven/com.cts.training/discovery-server/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery-server/pom.xml" />
+        <option value="$PROJECT_DIR$/api-gateway/target/classes/META-INF/maven/com.cts.training/api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/api-gateway/target/classes/META-INF/maven/com.cts.training/api-gateway/pom.properties" />
+        <option value="$PROJECT_DIR$/api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/mediaPlumbing/pom.xml" />
+        <option value="$PROJECT_DIR$/mediaservice/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
