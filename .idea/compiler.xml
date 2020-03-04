@@ -2,27 +2,27 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="api-gateway (2)" />
         <module name="userservice" />
-        <module name="api-gateway (1)" />
         <module name="mediaPlumbing" />
         <module name="mediaservice" />
         <module name="api-gateway" />
-        <module name="discovery-server (2)" />
         <module name="discovery-server (3)" />
         <module name="discovery-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api-gateway (1)" target="1.8" />
+      <module name="api-gateway (2)" target="1.5" />
       <module name="api-gateway (2) (com.cts.training)" target="1.8" />
       <module name="api-gateway (3)" target="1.8" />
       <module name="api-gateway (3) (com.cts.training)" target="1.8" />
       <module name="discovery-server (1)" target="1.8" />
-      <module name="discovery-server (2)" target="1.5" />
+      <module name="discovery-server (2)" target="1.8" />
       <module name="discovery-server (3)" target="1.8" />
       <module name="userservice (1)" target="1.8" />
       <module name="userservice (2)" target="1.5" />

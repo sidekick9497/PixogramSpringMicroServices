@@ -40,11 +40,11 @@ public class MediaController {
 
 
 	@PostMapping("/media")
-	public boolean save(@RequestParam("file")MultipartFile mediaFile) {
+	public ResponseEntity<Boolean> save(@RequestParam("file")MultipartFile mediaFile) {
 		//incomplete imelementation need to add  more fields to update data for media file
 		//this.mediaService.save(media);
 		this.storageService.store(mediaFile);
-		return true;
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	@GetMapping("/media/{mediaId}")
 	public ResponseEntity<MediaData> getById(@PathVariable Integer mediaId){
@@ -76,7 +76,6 @@ public class MediaController {
 		return true;
 		
 	}
-	
 	@ExceptionHandler  // ~catch
 	public ResponseEntity<MediaErrorResponse> productOperationErrorHAndler(Exception ex) {
 		// create error object
