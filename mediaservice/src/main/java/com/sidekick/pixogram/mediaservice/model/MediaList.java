@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MediaModel {
+public class MediaList {
 	
 	private List<Media> medialist;
 

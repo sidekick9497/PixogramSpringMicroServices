@@ -5,9 +5,9 @@
     <file url="file://$PROJECT_DIR$/api-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-server/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mediaplumbing" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mediaplumbing/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mediaplumbing/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mediaPlumbing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mediaPlumbing/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mediaPlumbing/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mediaservice" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mediaservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mediaservice/src/main/resources" charset="UTF-8" />

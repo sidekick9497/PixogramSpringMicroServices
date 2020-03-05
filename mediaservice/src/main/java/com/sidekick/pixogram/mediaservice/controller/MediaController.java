@@ -1,7 +1,6 @@
 package com.sidekick.pixogram.mediaservice.controller;
 
-import java.util.Optional;
-
+import com.sidekick.pixogram.mediaservice.entity.Media;
 import com.sidekick.pixogram.mediaservice.exception.MediaNotFoundException;
 import com.sidekick.pixogram.mediaservice.service.MediaService;
 import com.sidekick.pixogram.mediaservice.service.StorageService;
@@ -12,12 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.sidekick.pixogram.mediaservice.entity.Media;
 import com.sidekick.pixogram.mediaservice.exception.MediaErrorResponse;
-import com.sidekick.pixogram.mediaservice.model.MediaData;
-import com.sidekick.pixogram.mediaservice.model.MediaModel;
-import com.sidekick.pixogram.mediaservice.service.IMediaService;
+import com.sidekick.pixogram.mediaservice.model.MediaDetails;
+import com.sidekick.pixogram.mediaservice.model.MediaList;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -29,53 +29,65 @@ public class MediaController {
 
 	@Autowired
 	private StorageService storageService;
+
 	@GetMapping("/media")
-	public ResponseEntity<MediaModel> getall(){
-		MediaModel medialist = new MediaModel();
-		medialist.setMedialist(this.mediaService.getall());
-		ResponseEntity<MediaModel> result = new ResponseEntity<MediaModel>(medialist, HttpStatus.OK);
+	public ResponseEntity<MediaList> getAllMedia(){
+		List<Media> allMedia = this.mediaService.getAll();
+		MediaList medialist = new MediaList();
+		medialist.setMedialist(allMedia);
+		ResponseEntity<MediaList> result = new ResponseEntity<MediaList>(medialist, HttpStatus.OK);
 		return result;
 
 	}
 
+	@PostMapping("/media/saveDetails")
+	public  ResponseEntity<MediaDetails> saveMediaDetails(@RequestBody MediaDetails mediaDetails)
+	{
+		this.mediaService.save(mediaDetails);
+		return new ResponseEntity<MediaDetails>(mediaDetails,HttpStatus.OK);
 
-	@PostMapping("/media")
+
+	}
+	@PutMapping("/media/saveDetails")
+	public boolean updateMediaDetails(@RequestBody MediaDetails mediaDetails ) {
+
+		this.mediaService.save(mediaDetails);
+		return true;
+
+	}
+	@PostMapping("/media/saveImage")
 	public ResponseEntity<Boolean> save(@RequestParam("file")MultipartFile mediaFile) {
-		//incomplete imelementation need to add  more fields to update data for media file
-		//this.mediaService.save(media);
+
 		this.storageService.store(mediaFile);
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	@GetMapping("/media/{mediaId}")
-	public ResponseEntity<MediaData> getById(@PathVariable Integer mediaId){
-		MediaData data = new MediaData();
-		Media record = new Media();
-		Optional<Media> media = this.mediaService.getWithId(mediaId);
-		if(media.isPresent())
-			record = media.get();
-		else {
-			throw new MediaNotFoundException("Media not found");
+	public ResponseEntity<MediaDetails> mediaDetailsById(@PathVariable Integer mediaId){
+		MediaDetails mediaDetails= new MediaDetails();
+		Media media = new Media();
+		Optional<Media>  record = this.mediaService.getWithId(mediaId);
+		if(record.isPresent())
+		{
+			media = record.get();
 		}
-		data.setId(record.getId());
-		data.setUserId(record.getUserId());
-		data.setTitle(record.getTitle());
-		data.setTags(record.getTags());
-		data.setDescription(record.getDescription());
-		data.setType(record.getMimeType());
-		data.setFile(record.getFileUrl());
-		ResponseEntity<MediaData> result = new ResponseEntity<MediaData>(data, HttpStatus.OK);
+		else
+		{
+			throw new MediaNotFoundException("media not found");
+		}
+		mediaDetails.addMedia(media);
+
+		ResponseEntity<MediaDetails> result = new ResponseEntity<MediaDetails>(mediaDetails, HttpStatus.OK);
 		return result;
 	}
-	
-	
-	//update user
-	@PutMapping("/media")
-	public boolean update(@RequestBody MediaData media ) {
-		
-		this.mediaService.updateuser(media);
-		return true;
-		
+
+	@GetMapping("/media/userName/{userId}")
+	public ResponseEntity<MediaList> getMediaByUserId(@PathVariable Integer userId)
+	{
+		MediaList mediaList = this.mediaService.getMediaByUserId(userId);
+		ResponseEntity<MediaList> response = new ResponseEntity<>(mediaList, HttpStatus.OK);
+		return response;
 	}
+
 	@ExceptionHandler  // ~catch
 	public ResponseEntity<MediaErrorResponse> productOperationErrorHAndler(Exception ex) {
 		// create error object
