@@ -9,5 +9,5 @@ import java.util.List;
 @Setter
 public class MediaList {
 
-   private List<Media> mediaList;
+   private List<Media> medialist;
 }

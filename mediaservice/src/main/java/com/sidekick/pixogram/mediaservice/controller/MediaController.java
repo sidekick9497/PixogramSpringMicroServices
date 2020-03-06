@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
-
+@CrossOrigin("*")
 @RestController
 public class MediaController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -55,9 +56,9 @@ public class MediaController {
 		return true;
 
 	}
-	@PostMapping("/media/saveImage")
-	public ResponseEntity<Boolean> save(@RequestParam("file")MultipartFile mediaFile) {
-
+	@PostMapping(value = "/media/saveImage", headers = "Content-Type= multipart/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Boolean> saveMedia(@RequestParam("file") MultipartFile mediaFile) {
+		System.out.println("file name   " +mediaFile.getOriginalFilename());
 		this.storageService.store(mediaFile);
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
@@ -81,7 +82,7 @@ public class MediaController {
 	}
 
 	@GetMapping("/media/userName/{userId}")
-	public ResponseEntity<MediaList> getMediaByUserId(@PathVariable Integer userId)
+	public ResponseEntity<MediaList> mediaDetailsByUserId(@PathVariable Integer userId)
 	{
 		MediaList mediaList = this.mediaService.getMediaByUserId(userId);
 		ResponseEntity<MediaList> response = new ResponseEntity<>(mediaList, HttpStatus.OK);

@@ -13,6 +13,7 @@
         <module name="api-gateway" />
         <module name="discovery-server (3)" />
         <module name="discovery-server" />
+        <module name="actionservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +33,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="actionservice" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="api-gateway (2)" options="-parameters" />
       <module name="api-gateway (2) (com.cts.training)" options="-parameters" />

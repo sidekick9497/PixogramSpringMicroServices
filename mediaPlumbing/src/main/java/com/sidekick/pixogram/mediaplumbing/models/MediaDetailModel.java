@@ -20,15 +20,16 @@ public class MediaDetailModel {
 	private String fileURL;
 	private String[] comments = {"good","nice"};
 
-	public void addMedia(Media media) {
-
-		this.id = media.getId();
-		this.userId = media.getUserId();
-		this.title = media.getTitle();
-		this.description = media.getDescription();
-		this.tags = media.getTags();
+	public static MediaDetailModel fromMedia(Media media) {
+		MediaDetailModel mediaDetail = new MediaDetailModel();
+		mediaDetail.id = media.getId();
+		mediaDetail.userId = media.getUserId();
+		mediaDetail.title = media.getTitle();
+		mediaDetail.description = media.getDescription();
+		mediaDetail.tags = media.getTags();
 		//mediaDetailModel.type = media.getType();
-		this.fileURL = media.getFileURL();
+		mediaDetail.fileURL = media.getFileURL();
+		return mediaDetail;
 	}
 	public  void addComments(List<Object> comments)
 	{

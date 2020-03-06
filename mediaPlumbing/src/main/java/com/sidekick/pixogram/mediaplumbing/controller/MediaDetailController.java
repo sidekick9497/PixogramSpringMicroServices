@@ -28,27 +28,30 @@ public class MediaDetailController {
     }
 
     @GetMapping("/media-feign/media")
-    public List<Media> getMedia()
+    public ResponseEntity<MediaList> getMedia()
     {
-       /* MediaList mediaList = new MediaList();
-        List<Media> records = this.mediaServiceProxy.getAllMedia().getBody().getMediaList();
-        mediaList.setMediaList(records);
-        return new ResponseEntity<MediaList>(mediaList,HttpStatus.OK);*/
-       return this.mediaServiceProxy.getAllMedia().getBody().getMediaList();
+      MediaList mediaList = new MediaList();
+        List<Media> records = this.mediaServiceProxy.getAllMedia().getBody().getMedialist();
+        mediaList.setMedialist(records);
+        return new ResponseEntity<MediaList>(mediaList,HttpStatus.OK);
+     // return this.mediaServiceProxy.getAllMedia();
+
     }
     @GetMapping("/media-feign/oneMedia/{mediaId}")
     public ResponseEntity<MediaDetailModel> getMediaDetail(@PathVariable Integer mediaId)
     {
         Media media = mediaServiceProxy.mediaDetailsById(mediaId).getBody();
-        MediaDetailModel mediaDetailModel = new MediaDetailModel();
-        mediaDetailModel.addMedia(media);
+        MediaDetailModel mediaDetailModel = MediaDetailModel.fromMedia(media);
         ResponseEntity<MediaDetailModel> response = new ResponseEntity<>(mediaDetailModel, HttpStatus.OK);
         return  response;
     }
-    @PostMapping("/media-feign/media/save")
-    public ResponseEntity<Boolean> saveMedia(@RequestParam("file")MultipartFile file)
+    @PostMapping(value = "/media-feign/media/save")
+    public ResponseEntity<Boolean> saveMedia(MultipartFile mediaFile)
     {
-        return mediaServiceProxy.saveMedia(file);
+        System.out.println(mediaFile.getOriginalFilename());
+        ResponseEntity<Boolean> result = this.mediaServiceProxy.saveMedia(mediaFile);
+        return result;
+
     }
 
 }
