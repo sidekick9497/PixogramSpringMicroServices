@@ -26,17 +26,17 @@ public class LoginController {
 
 	// testing end-point
 	@GetMapping("/login")
-	public ResponseEntity<ResponseData> login(HttpServletRequest request) {
+	public ResponseEntity<Integer> login(HttpServletRequest request) {
 		// if called then credentials are valid
 		logger.info("Logged In...");
-		String authKey = request.getHeader("Authentication");
-		logger.info(authKey);
-		ResponseData data = new ResponseData("Welcome!!!", System.currentTimeMillis(),authKey);
+		String userName  = request.getHeader("userName");
+		System.out.println(userName);
+		 Integer data = this.userService.getUserByUserName(userName).getId();
+		 System.out.println(data);
 
-		ResponseEntity<ResponseData> response = 
 
-					new ResponseEntity<ResponseData>(data, HttpStatus.OK);
-		return response;
+				return	new ResponseEntity<Integer>(data, HttpStatus.OK);
+
 
 }
 

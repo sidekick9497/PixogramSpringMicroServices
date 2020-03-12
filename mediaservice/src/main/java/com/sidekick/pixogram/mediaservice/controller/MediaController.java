@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
 @RestController
 public class MediaController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,6 +43,7 @@ public class MediaController {
 	@PostMapping("/media/saveDetails")
 	public  ResponseEntity<MediaDetails> saveMediaDetails(@RequestBody MediaDetails mediaDetails)
 	{
+		System.out.println("save Details called");
 		this.mediaService.save(mediaDetails);
 		return new ResponseEntity<MediaDetails>(mediaDetails,HttpStatus.OK);
 
@@ -56,8 +56,8 @@ public class MediaController {
 		return true;
 
 	}
-	@PostMapping(value = "/media/saveImage", headers = "Content-Type= multipart/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<Boolean> saveMedia(@RequestParam("file") MultipartFile mediaFile) {
+	@PostMapping(value = "/media/saveImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Boolean> saveMedia(MultipartFile mediaFile) {
 		System.out.println("file name   " +mediaFile.getOriginalFilename());
 		this.storageService.store(mediaFile);
 		return new ResponseEntity<>(true, HttpStatus.OK);

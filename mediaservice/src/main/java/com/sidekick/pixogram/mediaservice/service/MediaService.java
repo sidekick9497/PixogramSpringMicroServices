@@ -27,6 +27,7 @@ public class MediaService {
 	
 	public void save(MediaDetails media) {
 		Media data = new Media();
+		System.out.println("user id from media micro service " + media.getUserId() );
 		data.setUserId(media.getUserId());
 		data.setTitle(media.getTitle());
 		data.setDescription(media.getDescription());

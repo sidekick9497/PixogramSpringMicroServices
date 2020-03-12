@@ -1,9 +1,12 @@
 package com.sidekick.pixogram.userservice.controller;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import com.sidekick.pixogram.userservice.exception.UserErrorResponse;
+import com.sidekick.pixogram.userservice.model.SearchedUserModel;
+import com.sidekick.pixogram.userservice.model.SearchedUserModelList;
 import com.sidekick.pixogram.userservice.service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +95,18 @@ public class UsersController {
 		return true;
 
 	}
-	
+	@GetMapping("/search-users/{searchText}")
+	public ResponseEntity<SearchedUserModelList> getSearchedUsers(@PathVariable String searchText)
+	{
+		List<SearchedUserModel> userList =  this.userServices.getSearchUsers(searchText);
+		SearchedUserModelList searchedUserModelList = new SearchedUserModelList();
+		searchedUserModelList.setUserList(userList);
+
+		return new ResponseEntity<SearchedUserModelList>(searchedUserModelList,HttpStatus.OK);
+	}
+
+
+
 	@ExceptionHandler  // ~catch
 	public ResponseEntity<UserErrorResponse> productOperationErrorHandler(Exception ex) {
 		// create error object

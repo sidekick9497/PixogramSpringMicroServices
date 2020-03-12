@@ -2,7 +2,9 @@ package com.sidekick.pixogram.userservice.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.sidekick.pixogram.userservice.model.SearchedUserModel;
 import com.sidekick.pixogram.userservice.repository.AuthorityRepository;
 import com.sidekick.pixogram.userservice.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,24 @@ public class Userservices implements IUserServices{
 		data.setProfile(user.getProfilePicUrl());
 		data.setEnabled(true);
 		this.userRepository.save(data);
+	}
+
+	@Override
+	public List<SearchedUserModel> getSearchUsers(String searchText) {
+		List<Users> userList = this.userRepository.findByUserNameContaining(searchText);
+		List<SearchedUserModel> modelList = userList.stream().map(user ->
+		{
+			SearchedUserModel searchedUserModel = new SearchedUserModel();
+			searchedUserModel.setName(user.getFirstName()+" " +user.getLastName());
+			searchedUserModel.setUserId(user.getId());
+			searchedUserModel.setProfileUrl(user.getProfile());
+			return searchedUserModel;
+		}).collect(Collectors.toList());
+		return modelList;
+	}
+	@Override
+	public Users getUserByUserName(String userName)
+	{
+		return this.userRepository.getUsersByUserName(userName);
 	}
 }

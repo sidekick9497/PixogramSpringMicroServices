@@ -11,6 +11,8 @@
         <option value="$PROJECT_DIR$/discovery-server/pom.xml" />
         <option value="$PROJECT_DIR$/mediaplumbing/pom.xml" />
         <option value="$PROJECT_DIR$/actionservice/pom.xml" />
+        <option value="$PROJECT_DIR$/misc-plumbing-service/pom.xml" />
+        <option value="$PROJECT_DIR$/followservice/pom.xml" />
       </list>
     </option>
   </component>

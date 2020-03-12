@@ -13,7 +13,7 @@ public class Media {
 		private String title;
 		private String description;
 		private String tags;
-		private String type;
-		private String fileURL;
+		private String mimeType;
+		private String fileUrl;
 	}
 

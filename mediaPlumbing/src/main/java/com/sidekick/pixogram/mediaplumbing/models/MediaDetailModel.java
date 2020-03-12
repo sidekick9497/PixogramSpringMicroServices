@@ -16,9 +16,13 @@ public class MediaDetailModel {
 	private String title;
 	private String description;
 	private String tags;
-	//private String type;
-	private String fileURL;
+	private String type;
+	private String fileUrl;
 	private String[] comments = {"good","nice"};
+	private Integer likedCount = 0;
+	private Integer dislikedCount = 0;
+	private boolean liked;
+	private boolean disliked;
 
 	public static MediaDetailModel fromMedia(Media media) {
 		MediaDetailModel mediaDetail = new MediaDetailModel();
@@ -27,13 +31,16 @@ public class MediaDetailModel {
 		mediaDetail.title = media.getTitle();
 		mediaDetail.description = media.getDescription();
 		mediaDetail.tags = media.getTags();
-		//mediaDetailModel.type = media.getType();
-		mediaDetail.fileURL = media.getFileURL();
+		mediaDetail.type = media.getMimeType();
+		mediaDetail.fileUrl = media.getFileUrl();
 		return mediaDetail;
 	}
-	public  void addComments(List<Object> comments)
+	public  void addActions(MediaActionCount mediaActionCount)
 	{
-		//not implemented
+		this.setLikedCount(mediaActionCount.getLikedCount());
+		this.setDislikedCount(mediaActionCount.getDisLikedCount());
+		this.setLiked(mediaActionCount.isLiked());
+		this.setDisliked(mediaActionCount.isDisliked());
 	}
 
 

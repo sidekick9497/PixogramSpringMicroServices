@@ -19,7 +19,7 @@ public class StorageService {
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
-    private final Path rootLocation = Paths.get("src/main/resources/static");
+    private final Path rootLocation = Paths.get("userservice/src/main/resources/static").toAbsolutePath();
     public void store(MultipartFile file) {
         try {
 
