@@ -35,6 +35,7 @@ public class MediaDetailController {
     @GetMapping("/media-feign/media")
     public ResponseEntity<MediaList> getMedia(HttpServletRequest request)
     {
+        System.out.println(request.getHeader("userId"));
         Integer userId = Integer.parseInt(request.getHeader("userId"));
       MediaList mediaList = new MediaList();
         List<MediaDetailModel> records = this.mediaServiceProxy.getAllMedia().getBody().getMedialist();
@@ -90,6 +91,20 @@ public class MediaDetailController {
         ResponseEntity<Boolean> result = this.mediaServiceProxy.saveMedia(mediaFile);
         return result;
 
+    }
+    @PostMapping("/media-feign/media/like/{mediaId}")
+    public boolean likeMedia(HttpServletRequest request, @PathVariable Integer mediaId)
+    {
+        Integer userId = Integer.parseInt(request.getHeader("userId"));
+        this.actionServiceProxy.likeMedia(mediaId,userId);
+        return true;
+    }
+    @PostMapping("media-feign/media/unlike/{mediaId}")
+    public boolean unlikeMedia(HttpServletRequest request, @PathVariable Integer mediaId)
+    {
+        Integer userId = Integer.parseInt(request.getHeader("userId"));
+        this.actionServiceProxy.unlikeMedia(mediaId,userId);
+        return true;
     }
 
 }
